@@ -202,11 +202,47 @@ class PostRepository {
     const templates = await PostModel.aggregate(query);
     return templates;
   }
-  async SearchPosts(search,page,size) {
+  async SearchPosts(search,page,size,formdata) {
     search= `"${search}"`;
-    console.log(search)
+    
 
-    const templates = await PostModel.find({ $text: { $search: search }}).skip(page).limit(size)
+    var query = { $text: { $search: search }};
+
+    if(formdata.is_reviewed_by_admin != undefined){
+      query.is_reviewed_by_admin = formdata.is_reviewed_by_admin
+    }
+    if(formdata.getallposttype =="onlypostwithoutreel"){
+
+      
+      query.$or=[
+          { reel_video_link: '' },
+          { reel_video_link: null }
+        ]
+      ;
+    }
+    if(formdata.getallposttype =="getonlyreels"){
+
+      
+      query.$and= [
+        {
+          'reel_video_link': {
+            '$ne': ''
+          }
+        },
+        {
+          'reel_video_link': {
+            '$ne': null
+          }
+        }, {
+          'reel_video_link': {
+            '$exists': true
+          }
+        }]
+      ;
+    }
+
+    console.log(JSON.stringify(query))
+    const templates = await PostModel.find(query).skip(page).limit(size)
     ;
 
     return templates;

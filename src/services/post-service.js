@@ -410,13 +410,16 @@ class PostService {
       return error
     }
   }
-  async SearchPost(search,page,size) {
+  async SearchPost(search,page,size,formdata) {
 
     try{
+      var matchdata = {}
+      var extra_query = await this.GetOnlyPOSTWithoutReelQueryExtraQuery();
+      matchdata["extra_query"] =   extra_query
 
       
 
-      var PostResult   = await this.repository.SearchPosts(search,page,size);
+      var PostResult   = await this.repository.SearchPosts(search,page,size,formdata);
 
       return PostResult;
     }catch(error){

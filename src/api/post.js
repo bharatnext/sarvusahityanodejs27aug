@@ -73,7 +73,7 @@ module.exports = (app) => {
       }
       const { limit, skip } = await GetPagination(req.body.page, req.body.size);
 
-      var data = await service.SearchPost(req.body.search,skip,limit);
+      var data = await service.SearchPost(req.body.search,skip,limit,req.body);
       data = await GetApiResponse(data);
       return res.json(data);
     } catch (error) {
