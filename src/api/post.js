@@ -7,14 +7,13 @@ const {
 } = require("../utils");
 const ApiLog = require("./middlewares/apilogs");
 
-
 const { Validator } = require("node-input-validator");
 
 module.exports = (app) => {
   const service = new PostService();
   // To listen
   // SubscribeMessage(channel, service);
-  app.post("/post/create",  async (req, res, next) => {
+  app.post("/post/create", async (req, res, next) => {
     try {
       const v = new Validator(req.body, {
         post_name: "required",
@@ -31,7 +30,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/posts",ApiLog,  async (req, res, next) => {
+  app.post("/posts", ApiLog, async (req, res, next) => {
     try {
       const { limit, skip } = await GetPagination(req.body.page, req.body.size);
       var sortarray = await GetSortByFromRequest(
@@ -46,8 +45,7 @@ module.exports = (app) => {
     }
   });
 
-  
-  app.post("/getallreels",ApiLog,  async (req, res, next) => {
+  app.post("/getallreels", ApiLog, async (req, res, next) => {
     try {
       const { limit, skip } = await GetPagination(req.body.page, req.body.size);
       var sortarray = await GetSortByFromRequest(
@@ -62,7 +60,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/searchpost",  async (req, res, next) => {
+  app.post("/searchpost", async (req, res, next) => {
     try {
       const v = new Validator(req.body, {
         search: "required",
@@ -73,7 +71,16 @@ module.exports = (app) => {
       }
       const { limit, skip } = await GetPagination(req.body.page, req.body.size);
 
-      var data = await service.SearchPost(req.body.search,skip,limit,req.body);
+      // if (req.body.getallposttype == undefined) {
+      //   req.body.getallposttype = "onlypostwithoutreel";
+      //   req.body.exclude_keys = "getallposttype";
+      // }
+      var data = await service.SearchPost(
+        req.body.search,
+        skip,
+        limit,
+        req.body
+      );
       data = await GetApiResponse(data);
       return res.json(data);
     } catch (error) {
@@ -81,9 +88,9 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/adminposts",  async (req, res, next) => {
+  app.post("/adminposts", async (req, res, next) => {
     try {
-      console.log("working")
+      console.log("working");
       const { limit, skip } = await GetPagination(req.body.page, req.body.size);
       var sortarray = await GetSortByFromRequest(
         req.body.orderbycolumnname,
@@ -113,7 +120,7 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.post("/getallpostlike",ApiLog,  async (req, res, next) => {
+  app.post("/getallpostlike", ApiLog, async (req, res, next) => {
     try {
       const v = new Validator(req.body, {
         user: "required",
@@ -146,7 +153,7 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.post("/getallwishlits",ApiLog,  async (req, res, next) => {
+  app.post("/getallwishlits", ApiLog, async (req, res, next) => {
     try {
       const v = new Validator(req.body, {
         user: "required",
@@ -162,7 +169,7 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.post("/post/:id",  ApiLog,async (req, res, next) => {
+  app.post("/post/:id", ApiLog, async (req, res, next) => {
     try {
       var data = await service.postById(req.params.id);
       data = await GetApiResponse(data);
@@ -171,11 +178,11 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.put("/post/:id",  async (req, res, next) => {
+  app.put("/post/:id", async (req, res, next) => {
     try {
       const id = req.params.id;
       var formdata = req.body;
-      console.log(formdata)
+      console.log(formdata);
       formdata["id"] = id;
       var data = await service.UpdatePost(formdata);
       data = await GetApiResponse(data);
@@ -184,9 +191,8 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.delete("/post/:id",  async (req, res, next) => {
+  app.delete("/post/:id", async (req, res, next) => {
     try {
-
       var data = await service.DeletePost(req.params.id);
       data = await GetApiResponse([]);
       return res.json(data);
@@ -194,9 +200,8 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.delete("/postlikeremove",  async (req, res, next) => {
+  app.delete("/postlikeremove", async (req, res, next) => {
     try {
-
       var data = await service.RemovePostLike(req.body);
       data = await GetApiResponse([]);
       return res.json(data);
@@ -204,9 +209,8 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.delete("/postwishlistremove",  ApiLog,async (req, res, next) => {
+  app.delete("/postwishlistremove", ApiLog, async (req, res, next) => {
     try {
-
       var data = await service.RemovePostWishlist(req.body);
       data = await GetApiResponse([]);
       return res.json(data);
@@ -214,9 +218,8 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.get("/sentnotificationpost",  async (req, res, next) => {
+  app.get("/sentnotificationpost", async (req, res, next) => {
     try {
-      
       var data = await service.GetPostsForNotifictaion();
       data = await GetApiResponse(data);
       return res.json(data);
@@ -224,9 +227,9 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.post("/script/updatepoetandcategory",  async (req, res, next) => {
+  app.post("/script/updatepoetandcategory", async (req, res, next) => {
     try {
-      console.log("Sdsf")
+      console.log("Sdsf");
       var data = await service.ScriptPOST();
       data = await GetApiResponse([]);
       return res.json(data);
