@@ -237,4 +237,31 @@ module.exports = (app) => {
       next(error);
     }
   });
+  app.post("/searchforautocomplete", async (req, res, next) => {
+    try {
+      const v = new Validator(req.body, {
+        search: "required",
+      });
+      const matched = await v.check();
+      if (!matched) {
+        return res.status(400).send(v.errors);
+      }
+      const { limit, skip } = await GetPagination(req.body.page, req.body.size);
+
+      // if (req.body.getallposttype == undefined) {
+      //   req.body.getallposttype = "onlypostwithoutreel";
+      //   req.body.exclude_keys = "getallposttype";
+      // }
+      var data = await service.SearchForAutocomplete(
+        req.body.search,
+        skip,
+        limit,
+        req.body
+      );
+      data = await GetApiResponse(data);
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
 };
