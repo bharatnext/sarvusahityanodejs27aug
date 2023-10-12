@@ -233,8 +233,12 @@ class PostRepository {
 
     query.post_status = "Published";
 
-    console.log(JSON.stringify(query));
-    const templates = await PostModel.find(query).skip(page).limit(size);
+    (query.score = { $meta: "textScore" }), // Add a text score for sorting
+      console.log(JSON.stringify(query));
+    const templates = await PostModel.find(query)
+      .sort({ score: { $meta: "textScore" } })
+      .skip(page)
+      .limit(size);
     return templates;
   }
   async FindPostById(id) {
