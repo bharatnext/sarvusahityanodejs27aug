@@ -237,7 +237,7 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.post("/searchforautocomplete", async (req, res, next) => {
+  app.post("/post/search/autocomplete", async (req, res, next) => {
     try {
       const v = new Validator(req.body, {
         search: "required",
