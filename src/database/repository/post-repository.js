@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
-const { PostModel, PostLikeModel, PostWishlistModel } = require("../models");
+const {
+  PostModel,
+  PostLikeModel,
+  PostWishlistModel,
+  MediaModel,
+  CategoryModel,
+  PoetModel,
+} = require("../models");
 const post = require("../models/post");
 
 //Dealing with data base operations
@@ -313,7 +320,7 @@ class PostRepository {
   async GetALLPOSTFORScript() {
     var query = [
       {
-        $limit: 200,
+        $limit: 1,
       },
     ];
 
@@ -325,6 +332,7 @@ class PostRepository {
       { _id: formdata["id"] },
       { $set: formdata }
     );
+    console.log(template);
     return template;
   }
   async SearchForAutocomplete(search, page, size, formdata) {
@@ -374,6 +382,48 @@ class PostRepository {
       .skip(page)
       .limit(size);
     return templates;
+  }
+  async GetALLPOSTFORScriptV2() {
+    var query = [
+      // {
+      //   $match: {
+      //     is_mediaupdate: {
+      //       $exists: false,
+      //     },
+      //   },
+      // },
+      {
+        $limit: 500,
+      },
+    ];
+
+    const templates = await PostModel.aggregate(query);
+    return templates;
+  }
+  async GetALLPOSTFORMediaUpdate() {
+    var query = [
+      // {
+      //   $match: {
+      //     is_mediaupdate: {
+      //       $exists: false,
+      //     },
+      //   },
+      // },
+      {
+        $limit: 500,
+      },
+    ];
+
+    const templates = await CategoryModel.aggregate(query);
+    return templates;
+  }
+  async UpdateMediaScript(formdata) {
+    const template = await CategoryModel.updateOne(
+      { _id: formdata["id"] },
+      { $set: formdata }
+    );
+    console.log(template);
+    return template;
   }
 }
 

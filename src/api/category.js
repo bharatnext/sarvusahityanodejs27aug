@@ -12,7 +12,7 @@ module.exports = (app) => {
   const service = new CategoryService();
   // To listen
   // SubscribeMessage(channel, service);
-  app.post("/category/create",  async (req, res, next) => {
+  app.post("/category/create", async (req, res, next) => {
     try {
       const v = new Validator(req.body, {
         category_name: "required",
@@ -29,7 +29,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/categorys",  async (req, res, next) => {
+  app.post("/categorys", async (req, res, next) => {
     try {
       const { limit, skip } = await GetPagination(req.body.page, req.body.size);
       var sortarray = await GetSortByFromRequest(
@@ -43,8 +43,8 @@ module.exports = (app) => {
       next(error);
     }
   });
-  
-  app.post("/admincategorys",  async (req, res, next) => {
+
+  app.post("/admincategorys", async (req, res, next) => {
     try {
       const { limit, skip } = await GetPagination(req.body.page, req.body.size);
       var sortarray = await GetSortByFromRequest(
@@ -58,7 +58,7 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.post("/category/:id",  async (req, res, next) => {
+  app.post("/category/:id", async (req, res, next) => {
     try {
       var data = await service.categoryById(req.params.id);
       data = await GetApiResponse(data);
@@ -67,7 +67,7 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.put("/category/:id",  async (req, res, next) => {
+  app.put("/category/:id", async (req, res, next) => {
     try {
       const id = req.params.id;
       var formdata = req.body;
@@ -79,7 +79,7 @@ module.exports = (app) => {
       next(error);
     }
   });
-  app.delete("/category/:id",  async (req, res, next) => {
+  app.delete("/category/:id", async (req, res, next) => {
     try {
       const id = req.params.id;
       var formdata = req.body;

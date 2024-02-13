@@ -72,7 +72,9 @@ CategorySchema.pre("save", function (next) {
 CategorySchema.pre("updateOne", function (next) {
   // capitalize
   const update = this.getUpdate();
-  update.$set.poet_slug = convertToSlug(update.$set.poet_name);
+  if (update.$set.poet_name != undefined) {
+    update.$set.poet_slug = convertToSlug(update.$set.poet_name);
+  }
   next();
 });
 CategorySchema.pre("aggregate", function () {

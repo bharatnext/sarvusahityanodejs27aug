@@ -264,4 +264,14 @@ module.exports = (app) => {
       next(error);
     }
   });
+  app.post("/script/updatemedia", async (req, res, next) => {
+    try {
+      console.log("Sdsf");
+      var data = await service.ScriptPOSTV2();
+      data = await GetApiResponse([]);
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
 };

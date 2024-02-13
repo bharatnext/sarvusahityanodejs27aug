@@ -1,5 +1,5 @@
-const { MediaRepository } = require('../database');
-const { FormateData, paginateResults } = require('../utils');
+const { MediaRepository } = require("../database");
+const { FormateData, paginateResults } = require("../utils");
 
 // All Business logic will be here
 class MediaService {
@@ -9,7 +9,6 @@ class MediaService {
 
   async AddMedia(userInputs) {
     const MediaResult = await this.repository.CreateMedia(userInputs);
-    // console.log(userInputs)
     // MediaResult.full_path =  "http://localhost:8086/uploads/"+userInputs.folder_name+'/'+userInputs.media_file
     return MediaResult;
   }
@@ -21,16 +20,17 @@ class MediaService {
   async GroupByMedia() {
     var q = [
       {
-        '$match': {
-          'folder_name': {
-            '$exists': true
-          }
-        }
-      }, {
-        '$group': {
-          '_id': '$folder_name'
-        }
-      }
+        $match: {
+          folder_name: {
+            $exists: true,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$folder_name",
+        },
+      },
     ];
     const MediaResult = await this.repository.GetMedias(q);
     return MediaResult;
@@ -45,7 +45,7 @@ class MediaService {
   }
   async DeleteMedia(formdata) {
     const MediaResult = await this.repository.DeleteMedia(formdata);
-    var data = this.MediaById(formdata['id']);
+    var data = this.MediaById(formdata["id"]);
     return data;
   }
 }

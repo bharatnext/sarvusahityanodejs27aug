@@ -530,6 +530,65 @@ class PostService {
       return error;
     }
   }
+  async ScriptPOSTV2() {
+    try {
+      var PostResult = await this.repository.GetALLPOSTFORScriptV2();
+
+      // for (const item of PostResult) {
+      //   console.log(item.post_media_url[0]);
+      //   if (item.post_media_url.length != 0) {
+      //     let updatedUrl = item.post_media_url[0].replace(
+      //       "http://sarvusahitya.com/fileupload",
+      //       "https://sarvusahitya.s3.ap-south-1.amazonaws.com"
+      //     );
+
+      //     var updatemedia = {
+      //       id: item._id,
+      //       post_media_url: [updatedUrl],
+      //       is_mediaupdate: true,
+      //     };
+      //   }
+      //   console.log(updatemedia);
+      //   // console.log(item._id);
+      //   await this.repository.UpdatePostScript(updatemedia);
+      // }
+
+      var mediaresult = await this.repository.GetALLPOSTFORMediaUpdate();
+
+      for (const item of mediaresult) {
+        let updatedUrl = item.category_media_url.replace(
+          "http://sarvusahitya.com/fileupload",
+          "https://sarvusahitya.s3.ap-south-1.amazonaws.com"
+        );
+
+        var updatemedia = {
+          id: item._id,
+          category_media_url: updatedUrl,
+          is_mediaupdate: true,
+        };
+
+        console.log(updatemedia);
+        // console.log(item._id);
+        await this.repository.UpdateMediaScript(updatemedia);
+      }
+
+      //   var poet_english_name = poetdata[0].poet_english_name;
+      //   var category_english_name = categorydata[0].category_english_name;
+
+      //   var formdata = {
+      //     poet_english_name: poet_english_name,
+      //     id: item._id,
+      //     category_english_name: category_english_name,
+      //   };
+      //   await this.repository.UpdatePostScript(formdata);
+      // }
+
+      return [];
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
 }
 
 module.exports = PostService;
