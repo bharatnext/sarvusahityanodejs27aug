@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "prod") {
 }
 
 module.exports = {
-  PORT: 8000,
+  PORT: 8086,
   DB_URL: process.env.MONGODB_URI,
   APP_SECRET: "sarvusahitya",
   EXCHANGE_NAME: "SAHITYA",

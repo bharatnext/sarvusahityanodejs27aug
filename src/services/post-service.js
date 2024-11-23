@@ -538,8 +538,8 @@ class PostService {
       //   console.log(item.post_media_url[0]);
       //   if (item.post_media_url.length != 0) {
       //     let updatedUrl = item.post_media_url[0].replace(
-      //       "http://sarvusahitya.com/fileupload",
-      //       "https://sarvusahitya.s3.ap-south-1.amazonaws.com"
+      //       "https://sarvusahitya.s3.ap-south-1.amazonaws.com/",
+      //       "https://sarvusahitya.bharatnextgentech.com/fileupload/"
       //     );
 
       //     var updatemedia = {
@@ -553,23 +553,42 @@ class PostService {
       //   await this.repository.UpdatePostScript(updatemedia);
       // }
 
-      var mediaresult = await this.repository.GetALLPOSTFORMediaUpdate();
+      // var mediaresult = await this.repository.GetALLPOSTFORMediaUpdate();
+
+      // for (const item of mediaresult) {
+      //   let updatedUrl = item.category_media_url.replace(
+      //     "https://sarvusahitya.s3.ap-south-1.amazonaws.com/",
+      //     "https://sarvusahitya.bharatnextgentech.com/fileupload/"
+      //   );
+
+      //   var updatemedia = {
+      //     id: item._id,
+      //     category_media_url: updatedUrl,
+      //     is_mediaupdate: true,
+      //   };
+
+      //   console.log(updatemedia);
+      //   // console.log(item._id);
+      //   await this.repository.UpdateMediaScript(updatemedia);
+      // }
+
+      var mediaresult = await this.repository.GetALLPOSTFORMediaUpdateV3();
 
       for (const item of mediaresult) {
-        let updatedUrl = item.category_media_url.replace(
-          "http://sarvusahitya.com/fileupload",
-          "https://sarvusahitya.s3.ap-south-1.amazonaws.com"
+        let updatedUrl = item.media_url.replace(
+          "http://sarvusahitya.com/",
+          "https://sarvusahitya.bharatnextgentech.com/fileupload/"
         );
 
         var updatemedia = {
           id: item._id,
-          category_media_url: updatedUrl,
+          media_url: updatedUrl,
           is_mediaupdate: true,
         };
 
         console.log(updatemedia);
         // console.log(item._id);
-        await this.repository.UpdateMediaScript(updatemedia);
+        await this.repository.UpdateMediaScriptV3(updatemedia);
       }
 
       //   var poet_english_name = poetdata[0].poet_english_name;

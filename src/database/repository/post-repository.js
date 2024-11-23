@@ -425,6 +425,32 @@ class PostRepository {
     console.log(template);
     return template;
   }
+
+  async GetALLPOSTFORMediaUpdateV3() {
+    var query = [
+      // {
+      //   $match: {
+      //     is_mediaupdate: {
+      //       $exists: false,
+      //     },
+      //   },
+      // },
+      {
+        $limit: 500,
+      },
+    ];
+
+    const templates = await MediaModel.aggregate(query);
+    return templates;
+  }
+  async UpdateMediaScriptV3(formdata) {
+    const template = await MediaModel.updateOne(
+      { _id: formdata["id"] },
+      { $set: formdata }
+    );
+    console.log(template);
+    return template;
+  }
 }
 
 module.exports = PostRepository;
