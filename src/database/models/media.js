@@ -10,7 +10,7 @@ const MediaSchema = new Schema(
       default: "image",
     },
     media_url: { type: String, default: "" },
-    folder_name: { type: String, default: "" },
+    folder_name: { type: String, default: "post" },
     is_del: { type: Boolean, default: false },
     is_mediaupdate: { type: Boolean, default: false },
   },
