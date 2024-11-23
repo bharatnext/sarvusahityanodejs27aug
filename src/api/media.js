@@ -23,8 +23,8 @@ const AWS = require("aws-sdk");
 
 // Set up AWS SDK configuration
 const s3 = new AWS.S3({
-  // accessKeyId: "AKIA2LLVEQMWLK43E6WL",
-  // secretAccessKey: "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",
+  accessKeyId: "",
+  secretAccessKey: "",
 });
 
 module.exports = (app) => {
