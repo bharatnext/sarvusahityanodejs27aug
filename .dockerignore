@@ -1,0 +1,25 @@
+
+# Files and directories to ignore when building Docker images for Node.js projects
+
+# Node.js dependencies and packages
+node_modules/
+
+# npm and Yarn lock files
+package-lock.json
+yarn.lock
+
+# Development and build directories
+dist/
+build/
+coverage/
+
+# Logs
+*.log
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+
+# Configuration files
+.env
