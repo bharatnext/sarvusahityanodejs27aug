@@ -3,11 +3,9 @@ const { PORT } = require("./config");
 const { databaseConnection } = require("./database");
 const expressApp = require("./express-app");
 const errorHandler = require("./utils/errors");
-const app = express();
 
-const router = express.Router();
-const serverless = require("serverless-http");
 const StartServer = async () => {
+  const app = express();
   const cors = require("cors");
   app.use(
     cors({
@@ -19,9 +17,9 @@ const StartServer = async () => {
 
   await databaseConnection();
 
-  router.get("/", (req, res) => res.send("Welcome To Sarvu Sahitya"));
+  app.get("/", (req, res) => res.send("Welcome To Sarvu Sahitya"));
 
-  await expressApp(router);
+  await expressApp(app);
   errorHandler(app);
   app
     .listen(PORT, () => {
@@ -36,5 +34,4 @@ const StartServer = async () => {
     });
 };
 
-app.use("/.netlify/functions/api", router);
 StartServer();
