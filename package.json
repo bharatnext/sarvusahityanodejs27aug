@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build":"netlify deploy --prod",
     "start": "node src/index.js",
     "dev": "NODE_ENV=dev nodemon src/index.js",
     "test": "jest"
