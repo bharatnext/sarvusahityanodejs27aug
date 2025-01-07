@@ -572,35 +572,43 @@ class PostService {
       //   await this.repository.UpdateMediaScript(updatemedia);
       // }
 
-      var mediaresult = await this.repository.GetALLPOSTFORMediaUpdateV3();
+      // var mediaresult = await this.repository.GetALLPOSTFORMediaUpdateV3();
+
+      // for (const item of mediaresult) {
+      //   let updatedUrl = item.media_url.replace(
+      //     "http://sarvusahitya.com/",
+      //     "https://sarvusahitya.bharatnextgentech.com/fileupload/"
+      //   );
+
+      //   var updatemedia = {
+      //     id: item._id,
+      //     media_url: updatedUrl,
+      //     is_mediaupdate: true,
+      //   };
+
+      //   console.log(updatemedia);
+      //   // console.log(item._id);
+      //   await this.repository.UpdateMediaScriptV3(updatemedia);
+      // }
+
+      var mediaresult = await this.repository.GetALLPOSTFORPoetUpdateV3();
 
       for (const item of mediaresult) {
-        let updatedUrl = item.media_url.replace(
-          "http://sarvusahitya.com/",
+        let updatedUrl = item.profile_media_url.replace(
+          "https://sarvusahitya.s3.ap-south-1.amazonaws.com/",
           "https://sarvusahitya.bharatnextgentech.com/fileupload/"
         );
 
         var updatemedia = {
           id: item._id,
-          media_url: updatedUrl,
+          profile_media_url: updatedUrl,
           is_mediaupdate: true,
         };
 
         console.log(updatemedia);
         // console.log(item._id);
-        await this.repository.UpdateMediaScriptV3(updatemedia);
+        await this.repository.UpdateMediapoetScriptV3(updatemedia);
       }
-
-      //   var poet_english_name = poetdata[0].poet_english_name;
-      //   var category_english_name = categorydata[0].category_english_name;
-
-      //   var formdata = {
-      //     poet_english_name: poet_english_name,
-      //     id: item._id,
-      //     category_english_name: category_english_name,
-      //   };
-      //   await this.repository.UpdatePostScript(formdata);
-      // }
 
       return [];
     } catch (error) {

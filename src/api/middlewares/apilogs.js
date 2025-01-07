@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
     ReqHeaders: req.headers,
     ReqParams: req.params,
   });
-  const result = await users.save();
+  //const result = await users.save();
 
   return next();
 };

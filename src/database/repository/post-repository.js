@@ -451,6 +451,32 @@ class PostRepository {
     console.log(template);
     return template;
   }
+
+  async GetALLPOSTFORPoetUpdateV3() {
+    var query = [
+      // {
+      //   $match: {
+      //     is_mediaupdate: {
+      //       $exists: false,
+      //     },
+      //   },
+      // },
+      {
+        $limit: 500,
+      },
+    ];
+
+    const templates = await PoetModel.aggregate(query);
+    return templates;
+  }
+  async UpdateMediapoetScriptV3(formdata) {
+    const template = await PoetModel.updateOne(
+      { _id: formdata["id"] },
+      { $set: formdata }
+    );
+    console.log(template);
+    return template;
+  }
 }
 
 module.exports = PostRepository;
