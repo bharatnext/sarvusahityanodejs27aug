@@ -595,7 +595,7 @@ class PostService {
 
       for (const item of mediaresult) {
         let updatedUrl = item.profile_media_url.replace(
-          "https://sarvusahitya.s3.ap-south-1.amazonaws.com/",
+          "https://sarvusahitya.bharatnextgentech.com/fileupload/fileupload/",
           "https://sarvusahitya.bharatnextgentech.com/fileupload/"
         );
 

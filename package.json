@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "NODE_ENV=dev nodemon src/index.js",
+    "vercedev": "NODE_ENV=dev src/index.js",
     "test": "jest"
   },
   "repository": {
